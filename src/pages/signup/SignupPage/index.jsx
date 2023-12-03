@@ -3,58 +3,62 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './SignupPage.module.css';
+import Button from '../../../components/Button';
 
 const Signup = () => {
   const [nombre, setNombre] = useState('');
+  const [usuario, setUsuario] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleRegistro = () => {
     // Lógica de registro aquí
-    console.log('Registrarse con:', nombre, email, password);
+    console.log('Registrarse con:', nombre, usuario, email, password);
   };
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.heading}>Registro</h2>
+      <h2 className={styles.heading}>Registro Wallypop</h2>
       <form className={styles.form}>
-        <label className={styles.label}>
-          Nombre:
-          <input
-            type="text"
-            value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
-            className={styles.input}
-          />
-        </label>
+        <label className={styles.label}>Nombre:</label>
         <br />
-        <label className={styles.label}>
-          Email:
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className={styles.input}
-          />
-        </label>
+        <input
+          type="text"
+          value={nombre}
+          onChange={(e) => setNombre(e.target.value)}
+          className={styles.input}
+        />
         <br />
-        <label className={styles.label}>
-          Password:
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className={styles.input}
-          />
-        </label>
+        <label className={styles.label}>Usuario:</label>
         <br />
-        <button
-          type="button"
-          onClick={handleRegistro}
-          className={styles.button}
-        >
+        <input
+          type="text"
+          value={usuario}
+          onChange={(e) => setUsuario(e.target.value)}
+          className={styles.input}
+        />
+        <br />
+        <label className={styles.label}>Email:</label>
+        <br />
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className={styles.input}
+        />
+        <br />
+        <label className={styles.label}>Password:</label>
+        <br />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className={styles.input}
+        />
+        <br />
+        <Button $variant={'primary'} type="submit" onClick={handleRegistro}>
           Registrarse
-        </button>
+        </Button>
       </form>
       <p className={styles.link}>
         ¿Ya tienes una cuenta? <Link to="/login">Iniciar sesión</Link>
