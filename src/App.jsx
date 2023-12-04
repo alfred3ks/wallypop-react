@@ -5,6 +5,10 @@ import Signup from './pages/auth/SignupPage';
 import './App.css';
 import Layout from './components/layout/Layout';
 
+import AdvertsPage from './pages/adverts/AdvertsPage';
+import NewAdvertPage from './pages/adverts/NewAdvertPage';
+import NotFounPage from './pages/NotFoundPage';
+
 const App = () => {
   return (
     <Routes>
@@ -12,15 +16,15 @@ const App = () => {
       <Route path="/signup" element={<Signup />} />
       {/* Rutas anidades */}
       <Route path="/adverts" element={<Layout></Layout>}>
-        <Route index element={<div>Adverts</div>} />
+        <Route index element={<AdvertsPage />} />
         <Route path=":id" element={<div>Ruta dinamica adverts id</div>} />
-        <Route path="new" element={<div>Nuevo anuncio</div>} />
+        <Route path="new" element={<NewAdvertPage />} />
       </Route>
 
       {/* Redireccion */}
       <Route path="/" element={<Navigate to={'/adverts'} />} />
       {/* pagina 404 */}
-      <Route path="/404" element={<div>404 | Not Fount</div>} />
+      <Route path="/404" element={<NotFounPage />} />
       {/* pagina 404 */}
       <Route path="*" element={<Navigate to={'/404'} />} />
     </Routes>
