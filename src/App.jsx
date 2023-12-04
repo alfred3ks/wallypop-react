@@ -3,6 +3,7 @@ import LoginPage from './pages/auth/LoginPage';
 import Signup from './pages/signup/SignupPage';
 
 import './App.css';
+import Layout from './components/layout/Layout';
 
 const App = () => {
   return (
@@ -10,7 +11,7 @@ const App = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<Signup />} />
       {/* Rutas anidades */}
-      <Route path="/adverts" element={<div>Layout</div>}>
+      <Route path="/adverts" element={<Layout></Layout>}>
         <Route index element={<div>Adverts</div>} />
         <Route path=":id" element={<div>Ruta dinamica adverts id</div>} />
         <Route path="new" element={<div>Nuevo anuncio</div>} />
