@@ -23,7 +23,7 @@ import { useState } from 'react';
 const NewAdvertPage = () => {
   const [advert, setAdvert] = useState({
     name: '',
-    sale: false,
+    sale: true,
     tags: [],
     price: '',
     photo: '',
@@ -45,6 +45,8 @@ const NewAdvertPage = () => {
             ? value.split(',')
             : name === 'price'
             ? parseFloat(value)
+            : name === 'sale'
+            ? value === 'compra'
             : value,
       };
     });
@@ -69,8 +71,8 @@ const NewAdvertPage = () => {
         <br />
         <select
           id="type"
-          name="type"
-          value={advert.sale ? 'venta' : 'compra'}
+          name="sale"
+          value={advert.sale ? 'compra' : 'venta'}
           onChange={handleChange}
         >
           <option value="compra">Compra</option>
