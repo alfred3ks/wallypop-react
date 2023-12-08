@@ -2,20 +2,8 @@ import { useEffect, useState } from 'react';
 import { getLatesAdverts } from '../service';
 import Content from '../../../components/layout/Content';
 import Advert from '../../../components/Advert';
-import Button from '../../../components/Button';
+import EmptyList from '../../../components/EmptyList';
 import { Link } from 'react-router-dom';
-
-const EmptyList = () => {
-  return (
-    <div>
-      <p>No puedes ver los anuncios si no estas autenticado.</p>
-
-      <Button as={Link} to={'/login'} $varaint={'primary'}>
-        Iniciar sesión
-      </Button>
-    </div>
-  );
-};
 
 const AdvertsPage = () => {
   const [adverts, setAdverts] = useState([]);
@@ -44,7 +32,7 @@ const AdvertsPage = () => {
           ))}
         </div>
       ) : (
-        <EmptyList />
+        <EmptyList message={'Para ver los anuncios debes estar autenticado.'} />
       )}
     </Content>
   );
