@@ -4,6 +4,8 @@ import Button from '../../../components/Button';
 import { login } from '../service';
 import { useAuth } from '../useAuth';
 
+import styles from './LoginPage.module.css';
+
 const LoginPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -60,46 +62,62 @@ const LoginPage = () => {
   const buttonDisabled = !(email && password) || isFeching;
 
   return (
-    <div>
-      <h2>Wallypop</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email:</label>
-        <br />
+    <div className={styles.container}>
+      <h2 className={styles.title}>Wallypop</h2>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <label htmlFor="email" className={styles.label}>
+          Email:
+        </label>
+
         <input
           id="email"
           type="email"
           name="email"
           value={credentials.email}
           onChange={handlChange}
+          className={styles.input}
         />
-        <br />
-        <label htmlFor="password">Password:</label>
-        <br />
+
+        <label htmlFor="password" className={styles.label}>
+          Password:
+        </label>
+
         <input
           id="password"
           type="password"
           name="password"
           value={credentials.password}
           onChange={handlChange}
+          className={styles.input}
         />
-        <br />
-        <input
-          id="checkbox"
-          type="checkbox"
-          name="rememberMe"
-          checked={rememberMe}
-          onChange={handlChange}
-        />
-        <label htmlFor="checkbox">Recordar contraseña</label>
-        <br />
-        <Button $variant={'primary'} type="submit" disabled={buttonDisabled}>
+        <div className={styles.checkbox}>
+          <input
+            id="checkbox"
+            type="checkbox"
+            name="rememberMe"
+            checked={rememberMe}
+            onChange={handlChange}
+          />
+          <label htmlFor="checkbox" className={styles.label}>
+            Recordar contraseña
+          </label>
+        </div>
+        <Button
+          $variant={'primary'}
+          $login={login}
+          type="submit"
+          disabled={buttonDisabled}
+        >
           {!isFeching ? 'Iniciar sesión' : 'Conectando...'}
         </Button>
       </form>
-      <p>
-        ¿No tienes una cuenta? <Link to="/signup">Regístrate</Link>
+      <p className={styles.message}>
+        ¿No tienes una cuenta?{' '}
+        <Link to="/signup" className={styles.link}>
+          Regístrate
+        </Link>
       </p>
-      {error && <div>{error.message}</div>}
+      {error && <div className={styles.error}>{error.message}</div>}
     </div>
   );
 };

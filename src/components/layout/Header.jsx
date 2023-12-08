@@ -1,13 +1,14 @@
 import { Link, NavLink } from 'react-router-dom';
 import AuthButton from '../AuthButton';
+import styles from './Header.module.css';
 
 const Header = () => {
   return (
-    <header>
+    <header className={styles.header}>
       <Link to={'/'}>
         <h1>Wallypop</h1>
       </Link>
-      <nav>
+      <nav className={styles.nav}>
         <NavLink to={'/adverts/new'}>Crear anuncio</NavLink>
         <AuthButton />
       </nav>
