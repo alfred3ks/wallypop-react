@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import AuthButton from '../AuthButton';
 
 const Header = () => {
@@ -8,6 +8,7 @@ const Header = () => {
         <h1>Wallypop</h1>
       </Link>
       <nav>
+        <NavLink to={'/adverts/new'}>New Advert</NavLink>
         <AuthButton />
       </nav>
     </header>
