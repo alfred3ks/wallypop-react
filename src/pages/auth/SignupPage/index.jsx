@@ -6,6 +6,7 @@ import styles from './SignupPage.module.css';
 import Button from '../../../components/Button';
 
 const Signup = () => {
+  const [error, setError] = useState(null);
   const [nombre, setNombre] = useState('');
   const [usuario, setUsuario] = useState('');
   const [email, setEmail] = useState('');
@@ -18,51 +19,54 @@ const Signup = () => {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.heading}>Registro Wallypop</h2>
+      <h2 className={styles.title}>Registro Wallypop</h2>
       <form className={styles.form}>
         <label className={styles.label}>Nombre:</label>
-        <br />
         <input
           type="text"
           value={nombre}
           onChange={(e) => setNombre(e.target.value)}
           className={styles.input}
         />
-        <br />
+
         <label className={styles.label}>Usuario:</label>
-        <br />
+
         <input
           type="text"
           value={usuario}
           onChange={(e) => setUsuario(e.target.value)}
           className={styles.input}
         />
-        <br />
+
         <label className={styles.label}>Email:</label>
-        <br />
+
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className={styles.input}
         />
-        <br />
+
         <label className={styles.label}>Password:</label>
-        <br />
+
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className={styles.input}
         />
-        <br />
+
         <Button $variant={'primary'} type="submit" onClick={handleRegistro}>
           Registrarse
         </Button>
       </form>
-      <p className={styles.link}>
-        ¿Ya tienes una cuenta? <Link to="/login">Iniciar sesión</Link>
+      <p className={styles.message}>
+        ¿Ya tienes una cuenta?{' '}
+        <Link to="/login" className={styles.link}>
+          Iniciar sesión
+        </Link>
       </p>
+      {error && <div className={styles.error}>{error.message}</div>}
     </div>
   );
 };
