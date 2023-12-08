@@ -8,7 +8,7 @@ const Header = () => {
         <h1>Wallypop</h1>
       </Link>
       <nav>
-        <NavLink to={'/adverts/new'}>New Advert</NavLink>
+        <NavLink to={'/adverts/new'}>Crear anuncio</NavLink>
         <AuthButton />
       </nav>
     </header>
