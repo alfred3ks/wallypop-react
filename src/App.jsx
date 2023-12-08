@@ -8,6 +8,7 @@ import Layout from './components/layout/Layout';
 import AdvertsPage from './pages/adverts/AdvertsPage';
 import NewAdvertPage from './pages/adverts/NewAdvertPage';
 import NotFounPage from './pages/NotFoundPage';
+import AdvertPage from './pages/adverts/AdvertPage';
 
 const App = () => {
   return (
@@ -17,7 +18,7 @@ const App = () => {
       {/* Rutas anidades */}
       <Route path="/adverts" element={<Layout></Layout>}>
         <Route index element={<AdvertsPage />} />
-        <Route path=":id" element={<div>Ruta dinamica adverts id</div>} />
+        <Route path=":id" element={<AdvertPage />} />
         <Route path="new" element={<NewAdvertPage />} />
       </Route>
 

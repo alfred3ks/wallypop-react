@@ -12,3 +12,14 @@ export const getLatesAdverts = () => {
   const url = `${advertsUrl}`;
   return client.get(url);
 };
+
+// Metodo para obtener un anuncio:
+export const getAdvert = (advertId) => {
+  const url = `${advertsUrl}/${advertId}`;
+  return client.get(url);
+};
+
+export const deleteAdvert = (advertId) => {
+  const url = `${advertsUrl}/${advertId}`;
+  return client.delete(url);
+};

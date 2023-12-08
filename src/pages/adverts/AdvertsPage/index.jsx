@@ -17,8 +17,6 @@ const AdvertsPage = () => {
     fetchAdverts();
   }, []);
 
-  console.log(adverts);
-
   return (
     <Content title={'Listado de anuncios'}>
       {adverts.length ? (
