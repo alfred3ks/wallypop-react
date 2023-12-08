@@ -1,114 +1,135 @@
-import { useState } from 'react';
-
-// const capitalizeFirstLetter = (input) => {
-//   return input.charAt(0).toUpperCase() + input.slice(1);
-// };
-
-// const Input = ({ label, id, type, value, onChange }) => {
-//   const handleInputChange = (e) => {
-//     const inputValue = e.target.value;
-//     const capitalizedValue = capitalizeFirstLetter(inputValue);
-//     onChange(capitalizedValue);
-//   };
-
-//   return (
-//     <div>
-//       <label htmlFor={id}>{label}</label>
-//       <br />
-//       <input type={type} id={id} value={value} onChange={handleInputChange} />
-//     </div>
-//   );
-// };
+import { useEffect, useState } from 'react';
+import { createAdvert } from '../service';
+import Button from '../../../components/Button';
+import { useNavigate } from 'react-router';
 
 const NewAdvertPage = () => {
-  const [advert, setAdvert] = useState({
+  const [isFeching, setIsFeching] = useState(false);
+  const [error, setError] = useState(null);
+  const [formData, setFormData] = useState({
     name: '',
     sale: true,
     tags: [],
     price: '',
-    photo: '',
+    photo: null,
   });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(advert);
-  };
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    setAdvert((currentAdvert) => {
-      return {
-        ...currentAdvert,
-        [name]:
-          name === 'tags'
-            ? value.split(',')
-            : name === 'price'
-            ? parseFloat(value)
-            : name === 'sale'
-            ? value === 'compra'
-            : value,
-      };
-    });
+    const { name, value, files } = e.target;
+    if (name === 'photo') {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: files[0],
+      }));
+    } else {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: name === 'tags' ? value.split(',') : value,
+      }));
+    }
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const formDataToSend = new FormData();
+      Object.entries(formData).forEach(([key, value]) => {
+        if (key === 'photo') {
+          if (value instanceof File) {
+            formDataToSend.append(key, value);
+          }
+        } else {
+          formDataToSend.append(key, value);
+        }
+      });
+      setIsFeching(true);
+      const advert = await createAdvert(formDataToSend);
+      navigate(`../${advert.id}`, { relative: 'path' });
+    } catch (err) {
+      if (err.status === 401) {
+        navigate('/login');
+      } else {
+        setIsFeching(false);
+        setError(err);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const errorTime = setTimeout(() => {
+      setError(null);
+      return () => {
+        clearTimeout(errorTime);
+      };
+    }, 3000);
+  }, [error]);
+
+  const { name, sale, tags, price } = formData;
+  const buttonDisabled = !(name && sale && tags && price) || isFeching;
 
   return (
     <div>
-      <h2>Producto</h2>
+      <h2>Crear un nuevo Producto</h2>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Nombre del producto:</label>
-        <br />
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={advert.name}
-          onChange={handleChange}
-        />
-        <br />
+        <div>
+          <label htmlFor="name">Nombre del producto:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+          />
+        </div>
 
-        <label htmlFor="type">Tipo de producto:</label>
-        <br />
-        <select
-          id="type"
-          name="sale"
-          value={advert.sale ? 'compra' : 'venta'}
-          onChange={handleChange}
-        >
-          <option value="compra">Compra</option>
-          <option value="venta">Venta</option>
-        </select>
-        <br />
+        <div>
+          <label htmlFor="type">Tipo de producto:</label>
+          <select name="sale" value={formData.sale} onChange={handleChange}>
+            <option value={false}>Venta</option>
+            <option value={true}>Compra</option>
+          </select>
+        </div>
 
-        <label htmlFor="tags">Introduce los Tags separados por comas:</label>
-        <br />
-        <input
-          type="text"
-          id="tags"
-          name="tags"
-          value={advert.tags}
-          onChange={handleChange}
-        />
+        <div>
+          <label htmlFor="tags">Tags separados por comas:</label>
+          <input
+            type="text"
+            id="tags"
+            name="tags"
+            value={formData.tags}
+            onChange={handleChange}
+          />
+        </div>
 
-        <br />
-        <label htmlFor="price">Precio:</label>
-        <br />
-        <input
-          type="text"
-          id="price"
-          name="price"
-          value={advert.price}
-          onChange={handleChange}
-        />
-        <br />
+        <div>
+          <label htmlFor="price"> Precio:</label>
+          <input
+            type="text"
+            id="price"
+            name="price"
+            value={formData.price}
+            onChange={handleChange}
+          />
+        </div>
 
-        <label htmlFor="photo">Foto del producto:</label>
-        <br />
-        <input type="file" id="photo" name="photo" onChange={handleChange} />
-        <br />
+        <div>
+          <label htmlFor="photo">Foto del producto:</label>
+          <input
+            type="file"
+            id="photo"
+            name="photo"
+            accept="image/*"
+            onChange={handleChange}
+          />
+        </div>
 
-        <button type="submit">Enviar</button>
+        <Button $variant={'primary'} type="submit" disabled={buttonDisabled}>
+          {!isFeching ? 'Enviar' : 'Enviando...'}
+        </Button>
       </form>
+      {error && <div>{error.message}</div>}
     </div>
   );
 };
