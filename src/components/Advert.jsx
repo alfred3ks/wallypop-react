@@ -30,8 +30,7 @@ const Container = styled.div`
 const PhotoContainer = styled.div`
   width: 280px;
   @media screen and (width >= 768px) {
-    width: 100%;
-    height: 300px;
+    height: 200px;
   }
 `;
 
