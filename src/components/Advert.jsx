@@ -6,7 +6,9 @@ import Photo from './Photo';
 const Advert = ({ name, sale, price, photo, tags }) => {
   return (
     <Container>
-      <Photo photo={photo} />
+      <PhotoContainer>
+        <Photo photo={photo} />
+      </PhotoContainer>
       <div>
         <Paragraph>{name}</Paragraph>
         <Paragraph>{price}€</Paragraph>
@@ -23,6 +25,14 @@ const Container = styled.div`
   border-radius: 10px;
   padding: 15px;
   margin-bottom: 10px;
+`;
+
+const PhotoContainer = styled.div`
+  width: 280px;
+  @media screen and (width >= 768px) {
+    width: 100%;
+    height: 300px;
+  }
 `;
 
 const Paragraph = styled.p`

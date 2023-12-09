@@ -6,6 +6,7 @@ import Photo from '../../../components/Photo';
 import Loading from '../../../components/Loading';
 import { useAuth } from '../../auth/useAuth';
 import Button from '../../../components/Button';
+import styled from 'styled-components';
 
 const AdvertPage = () => {
   const [advert, setAdvert] = useState(null);
@@ -42,22 +43,69 @@ const AdvertPage = () => {
 
   return (
     <Content title={'Detalle de un anuncio.'}>
-      {loading ? (
-        <Loading message={'Cargando...'} />
-      ) : (
-        advert && (
-          <div>
-            <h2>{advert.name}</h2>
-            <Photo photo={advert.photo} />
-            <p>Tipo: {advert.sale ? 'compra' : 'venta'}</p>
-            <p>Precio: {advert.price}€</p>
-            <p>Tags: {advert.tags.join(', ')}</p>
-            {isLogged && <Button onClick={handleDelete}>Borrar Anuncio</Button>}
-          </div>
-        )
-      )}
+      <Container>
+        {loading ? (
+          <Loading message={'Cargando...'} />
+        ) : (
+          advert && (
+            <ContainerAdvert>
+              <Title>{advert.name}</Title>
+              <PhotoContainer>
+                <Photo photo={advert.photo} />
+              </PhotoContainer>
+              <Paragraph>Tipo: {advert.sale ? 'compra' : 'venta'}</Paragraph>
+              <Paragraph>Precio: {advert.price}€</Paragraph>
+              <Tags>Tags: {advert.tags.join(', ')}</Tags>
+              {isLogged && (
+                <Button onClick={handleDelete}>Borrar Anuncio</Button>
+              )}
+            </ContainerAdvert>
+          )
+        )}
+      </Container>
     </Content>
   );
 };
+
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ContainerAdvert = styled.div`
+  width: 300px;
+  padding: 15px;
+  background-color: #c6f3f3;
+  border-radius: 10px;
+
+  @media screen and (width >= 768px) {
+    width: 400px;
+  }
+`;
+
+const Title = styled.h2`
+  font-size: 2rem;
+  color: #0e4564;
+  font-weight: bold;
+  margin-bottom: 15px;
+`;
+
+const PhotoContainer = styled.div`
+  width: 100%;
+`;
+
+const Paragraph = styled.p`
+  font-size: 1.8rem;
+  color: #0e4564;
+  margin-top: 5px;
+`;
+
+const Tags = styled.p`
+  font-size: 1.6rem;
+  color: #0e4564;
+  margin-top: 5px;
+  margin-bottom: 25px;
+`;
 
 export default AdvertPage;
