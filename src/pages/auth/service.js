@@ -15,7 +15,7 @@ export const login = async (credencials, rememberMe) => {
   }
 };
 
-// Método para cerrar el login:
+// Método para cerrar el logout:
 export const logout = async () => {
   await Promise.resolve();
   removeAuthorizationHeader();

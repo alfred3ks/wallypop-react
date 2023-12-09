@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router';
 import LoginPage from './pages/auth/LoginPage';
-import Signup from './pages/auth/SignupPage';
+import Signup from './pages/sign/SignupPage';
 
 import './App.css';
 import Layout from './components/layout/Layout';
