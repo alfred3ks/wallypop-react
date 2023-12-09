@@ -25,7 +25,7 @@ const Container = styled.header`
   align-items: center;
   flex-wrap: wrap;
   padding: 10px 0px;
-  background-color: #9ca2be;
+  background-color: #c6f3f3;
   color: #fff;
   a {
     text-decoration: none;
@@ -44,7 +44,7 @@ const Title = styled.h1`
   padding-bottom: 10px;
   font-size: 3.2rem;
   text-decoration: none;
-  color: #fff;
+  color: #0e4564;
 
   @media screen and (width >=768px) {
     padding-bottom: 0px;
@@ -56,9 +56,10 @@ const Nav = styled.nav`
   gap: 20px;
   align-items: center;
   a {
-    color: #fff;
+    color: #0e4564;
     text-decoration: none;
     font-size: 1.4rem;
+    font-weight: bold;
   }
 `;
 

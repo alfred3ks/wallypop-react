@@ -14,7 +14,7 @@ const AuthButton = () => {
   return isLogged ? (
     <Button onClick={handleLogout}>Cerrar sesión</Button>
   ) : (
-    <Button as={Link} to={'/login'} $variant="primary">
+    <Button as={Link} to={'/login'} style={{ color: '#fff' }}>
       Iniciar sesión
     </Button>
   );

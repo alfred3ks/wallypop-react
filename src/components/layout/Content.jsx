@@ -13,8 +13,9 @@ const Content = ({ title, children }) => {
 // Estilos cons styled component
 const Title = styled.h2`
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   font-size: 2.4rem;
+  color: #0e4564;
 `;
 
 export default Content;

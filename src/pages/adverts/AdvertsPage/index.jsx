@@ -24,7 +24,7 @@ const AdvertsPage = () => {
         <Container>
           {adverts.map(({ id, ...advert }) => (
             <div key={id}>
-              <Link to={`${id}`}>
+              <Link to={`${id}`} style={{ textDecoration: 'none' }}>
                 <Advert {...advert} />
               </Link>
             </div>
