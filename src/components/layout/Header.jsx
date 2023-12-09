@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <header className={styles.header}>
       <Link to={'/'}>
-        <h1>Wallypop</h1>
+        <h1 className={styles.title}>Wallypop</h1>
       </Link>
       <nav className={styles.nav}>
         <NavLink to={'/adverts/new'}>Crear anuncio</NavLink>
