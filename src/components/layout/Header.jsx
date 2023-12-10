@@ -9,7 +9,12 @@ const Header = () => {
         <Title>Wallypop</Title>
       </Link>
       <Nav>
-        <NavLink to={'/adverts/new'}>Crear anuncio</NavLink>
+        <NavLinkStyled to="/adverts/new" replace>
+          Crear anuncio
+        </NavLinkStyled>
+        <NavLinkStyled to="/adverts" end>
+          Anuncios
+        </NavLinkStyled>
         <AuthButton />
       </Nav>
     </Container>
@@ -27,10 +32,11 @@ const Container = styled.header`
   padding: 10px 0px;
   background-color: #c6f3f3;
   color: #fff;
+  position: sticky;
+  top: 0;
   a {
     text-decoration: none;
   }
-
   @media screen and (width >= 768px) {
     height: 80px;
     flex-direction: row;
@@ -43,7 +49,6 @@ const Title = styled.h1`
   margin: 0;
   padding-bottom: 10px;
   font-size: 3.2rem;
-  text-decoration: none;
   color: #0e4564;
 
   @media screen and (width >=768px) {
@@ -53,13 +58,21 @@ const Title = styled.h1`
 
 const Nav = styled.nav`
   display: flex;
-  gap: 20px;
+  gap: 15px;
   align-items: center;
-  a {
-    color: #0e4564;
-    text-decoration: none;
-    font-size: 1.4rem;
-    font-weight: bold;
+  justify-content: center;
+`;
+
+const NavLinkStyled = styled(NavLink)`
+  color: #0e4564;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: bold;
+  &.active {
+    color: rgb(242, 160, 29);
+  }
+  @media screen and (width >=768px) {
+    font-size: 1.6rem;
   }
 `;
 
