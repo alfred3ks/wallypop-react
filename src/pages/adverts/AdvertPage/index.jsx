@@ -11,6 +11,7 @@ import styled from 'styled-components';
 const AdvertPage = () => {
   const [advert, setAdvert] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const { isLogged } = useAuth();
   const navigate = useNavigate();
 
@@ -33,11 +34,15 @@ const AdvertPage = () => {
   }, [id, navigate]);
 
   const handleDelete = async () => {
-    try {
-      await deleteAdvert(id);
-      navigate('/');
-    } catch (err) {
-      console.err('Error al borrar el anuncio', err);
+    if (confirmDelete) {
+      try {
+        await deleteAdvert(id);
+        navigate('/');
+      } catch (err) {
+        console.error('Error al borrar el anuncio', err);
+      }
+    } else {
+      setConfirmDelete(true);
     }
   };
 
@@ -57,7 +62,19 @@ const AdvertPage = () => {
               <Paragraph>Precio: {advert.price}€</Paragraph>
               <Tags>Tags: {advert.tags.join(', ')}</Tags>
               {isLogged && (
-                <Button onClick={handleDelete}>Borrar Anuncio</Button>
+                <>
+                  <Button onClick={handleDelete}>
+                    {confirmDelete ? 'Confirmar Borrar' : 'Borrar Anuncio'}
+                  </Button>
+                  {confirmDelete && (
+                    <Button
+                      onClick={() => setConfirmDelete(false)}
+                      style={{ marginLeft: '10px' }}
+                    >
+                      Cancelar
+                    </Button>
+                  )}
+                </>
               )}
             </ContainerAdvert>
           )

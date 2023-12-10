@@ -7,8 +7,8 @@ const EmptyList = ({ message }) => {
   return (
     <Container>
       <Text>{message}</Text>
-      <Button as={Link} to={'/login'} $variant={'primary'}>
-        Iniciar sesión
+      <Button as={Link} to={'/adverts/new'} $variant={'primary'}>
+        Crear anuncio
       </Button>
     </Container>
   );

@@ -31,7 +31,7 @@ const AdvertsPage = () => {
           ))}
         </Container>
       ) : (
-        <EmptyList message={'Para ver los anuncios debes estar autenticado.'} />
+        <EmptyList message={'No hay anuncios que mostrar.'} />
       )}
     </Content>
   );
