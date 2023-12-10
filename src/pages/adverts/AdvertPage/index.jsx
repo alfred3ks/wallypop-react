@@ -119,7 +119,7 @@ const Paragraph = styled.p`
 `;
 
 const Tags = styled.p`
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   color: #0e4564;
   margin-top: 5px;
   margin-bottom: 25px;

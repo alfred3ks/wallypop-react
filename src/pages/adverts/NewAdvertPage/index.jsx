@@ -4,6 +4,10 @@ import Button from '../../../components/Button';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 
+const capitalizeFirstLetter = (value) => {
+  return value.charAt(0).toUpperCase() + value.slice(1);
+};
+
 const NewAdvertPage = () => {
   const [isFeching, setIsFeching] = useState(false);
   const [error, setError] = useState(null);
@@ -27,7 +31,10 @@ const NewAdvertPage = () => {
     } else {
       setFormData((prevFormData) => ({
         ...prevFormData,
-        [name]: name === 'tags' ? value.split(',') : value,
+        [name]:
+          name === 'tags'
+            ? value.split(',').map((tag) => capitalizeFirstLetter(tag.trim()))
+            : capitalizeFirstLetter(value),
       }));
     }
   };
@@ -85,8 +92,8 @@ const NewAdvertPage = () => {
 
         <Label htmlFor="type">Tipo de producto:</Label>
         <Select name="sale" value={formData.sale} onChange={handleChange}>
-          <option value={false}>Venta</option>
           <option value={true}>Compra</option>
+          <option value={false}>Venta</option>
         </Select>
 
         <Label htmlFor="tags">Tags separados por comas:</Label>
