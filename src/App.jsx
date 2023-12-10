@@ -9,6 +9,7 @@ import AdvertsPage from './pages/adverts/AdvertsPage';
 import NewAdvertPage from './pages/adverts/NewAdvertPage';
 import NotFounPage from './pages/NotFoundPage';
 import AdvertPage from './pages/adverts/AdvertPage';
+import RequireAuth from './components/RequireAuth';
 
 const App = () => {
   return (
@@ -19,7 +20,14 @@ const App = () => {
       <Route path="/adverts" element={<Layout></Layout>}>
         <Route index element={<AdvertsPage />} />
         <Route path=":id" element={<AdvertPage />} />
-        <Route path="new" element={<NewAdvertPage />} />
+        <Route
+          path="new"
+          element={
+            <RequireAuth>
+              <NewAdvertPage />
+            </RequireAuth>
+          }
+        />
       </Route>
 
       {/* Redireccion */}
