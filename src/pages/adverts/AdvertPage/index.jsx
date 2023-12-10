@@ -1,16 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 import { deleteAdvert, getAdvert } from '../service';
 import Content from '../../../components/layout/Content';
 import Photo from '../../../components/Photo';
-import Loading from '../../../components/Loading';
 import { useAuth } from '../../auth/useAuth';
 import Button from '../../../components/Button';
 import styled from 'styled-components';
 
 const AdvertPage = () => {
   const [advert, setAdvert] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const { isLogged } = useAuth();
   const navigate = useNavigate();
@@ -26,8 +25,6 @@ const AdvertPage = () => {
         if (err.status === 404) {
           navigate('/404');
         }
-      } finally {
-        setLoading(false);
       }
     };
     fetchAdvert();
@@ -49,8 +46,14 @@ const AdvertPage = () => {
   return (
     <Content title={'Detalle de un anuncio.'}>
       <Container>
-        {loading ? (
-          <Loading message={'Cargando...'} />
+        {!isLogged ? (
+          <Message>
+            <Text>Para ver el detalle de un anuncio debes estar logueado.</Text>
+
+            <Link to="/login">
+              <Button>Iniciar sesión</Button>
+            </Link>
+          </Message>
         ) : (
           advert && (
             <ContainerAdvert>
@@ -88,6 +91,26 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+const Message = styled.div`
+  width: 300px;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 30px;
+  padding: 50px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  @media screen and (width >= 768px) {
+    width: 500px;
+  }
+`;
+
+const Text = styled.p`
+  font-size: 1.8rem;
+  color: #0e4564;
+  margin-bottom: 15px;
 `;
 
 const ContainerAdvert = styled.div`
